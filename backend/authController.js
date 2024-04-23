@@ -100,8 +100,28 @@ const signup = async(req, res, next) => {
     }
 };
 
+
+const getUser = async(req,res,next) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await userModel.findById(userId);
+        return res.status(200).json({
+            success:true,
+            data: user
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+
+
+}
+
  
  module.exports = {
-     signup, signin
+     signup, signin, getUser
  };
  
